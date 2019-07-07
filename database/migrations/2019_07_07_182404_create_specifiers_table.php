@@ -25,6 +25,7 @@ class CreateSpecifiersTable extends Migration
             $table->char('state',2);
             $table->string('city');
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 

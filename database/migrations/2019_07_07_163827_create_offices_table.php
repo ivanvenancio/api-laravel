@@ -21,6 +21,7 @@ class CreateOfficesTable extends Migration
             $table->string('social_name');
             $table->string('zip_code',8);
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 
