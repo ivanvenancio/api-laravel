@@ -14,7 +14,16 @@ class CreateSpecifiersTable extends Migration
     public function up()
     {
         Schema::create('specifiers', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id');            
+            $table->string('name');
+            $table->string('last_name');
+            $table->char('cpf',11)->unique();
+            $table->string('profession');
+            $table->date('date-birth');
+            $table->char('phone',13);
+            $table->string('zip_code',8);
+            $table->char('state',2);
+            $table->string('city');
             $table->timestamps();
         });
     }
