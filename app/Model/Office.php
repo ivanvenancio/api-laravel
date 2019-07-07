@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Model;
+
+use App\Model\Specifier;
+use Illuminate\Database\Eloquent\Model;
+
+class Office extends Model
+{
+    protected $fillable = ['cnpj','name','fantasy_name','social_name','zip_code'];
+
+    public function specifier(){
+        return $this->hasMany(Specifier::class);
+    }
+}
