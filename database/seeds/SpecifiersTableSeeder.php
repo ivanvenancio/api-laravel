@@ -11,6 +11,6 @@ class SpecifiersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Model\Specifier::class,10)->create();
+        factory(\App\Model\Specifier::class,100)->create();
     }
 }

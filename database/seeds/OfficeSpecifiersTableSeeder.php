@@ -11,6 +11,6 @@ class OfficeSpecifiersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Model\OfficeSpecifier::class,10)->create();
+        factory(\App\Model\OfficeSpecifier::class,100)->create();
     }
 }
