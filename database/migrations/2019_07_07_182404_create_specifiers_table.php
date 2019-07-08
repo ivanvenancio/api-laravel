@@ -15,11 +15,11 @@ class CreateSpecifiersTable extends Migration
     {
         Schema::create('specifiers', function (Blueprint $table) {
             $table->bigIncrements('id');            
-            $table->string('name');
+            $table->string('first_name');
             $table->string('last_name');
             $table->char('cpf',11)->unique();
             $table->string('profession');
-            $table->date('date-birth');
+            $table->date('date_birth');
             $table->char('phone',13);
             $table->string('zip_code',8);
             $table->char('state',2);

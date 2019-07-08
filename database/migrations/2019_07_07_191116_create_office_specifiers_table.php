@@ -14,6 +14,7 @@ class CreateOfficeSpecifiersTable extends Migration
     public function up()
     {
         Schema::create('office_specifiers', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('office_id')->nullable($value = false);            
             $table->foreign('office_id')
                 ->references('id')->on('offices')

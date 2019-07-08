@@ -15,8 +15,7 @@ class CreateOfficesTable extends Migration
     {
         Schema::create('offices', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->char('cnpj',13)->unique();
-            $table->string('name');
+            $table->char('cnpj',14)->unique();
             $table->string('fantasy_name');
             $table->string('social_name');
             $table->string('zip_code',8);
