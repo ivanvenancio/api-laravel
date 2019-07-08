@@ -13,11 +13,11 @@ class UsersTableSeeder extends Seeder
     {
         \App\User::create([
             'name' => 'Ivan Venancio',
-            'email' => 'ivan@nowsolutions.com.br',
+            'email' => 'user@user.com',
             'email_verified_at' => now(),
             'password' => Hash::make('123mudar'),
             'remember_token' => Str::random(10),
         ]);
-        factory(\App\User::class,1)->create();
+        //factory(\App\User::class,1)->create();
     }
 }
