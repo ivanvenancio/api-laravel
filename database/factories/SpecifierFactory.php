@@ -7,7 +7,7 @@ use App\Model\Specifier;
 $faker = \Faker\Factory::create('pt_BR');
 
 $factory->define(Specifier::class, function () use($faker) {
-    $caracteres = ['/','.','-','(',')'];
+    $caracteres = ['/','.','-','(',')',' '];
     return [
         'cpf' => str_replace($caracteres,"",$faker->cpf),
         'first_name' => $faker->firstName(null) ,

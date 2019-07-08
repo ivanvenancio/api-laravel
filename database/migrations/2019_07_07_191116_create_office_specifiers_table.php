@@ -24,6 +24,7 @@ class CreateOfficeSpecifiersTable extends Migration
             $table->foreign('specifier_id')
                 ->references('id')->on('specifiers')
                 ->onDelete('cascade');
+            $table->string('status')->default('yes');
             $table->engine = 'InnoDB';
         });
         
