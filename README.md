@@ -17,15 +17,15 @@ https://github.com/ivanvenancio/api-laravel.git
 
 3. Fazer uma cópia do arquivo .env-default na raiz do projeto e renomear para .env
 
-4. Atualizar o .env com as credênciais do base mysql
+4. Atualizar o .env com as credênciais do mysql
 
-5. Rodar o comando para criar as tabelas necessárias e caso queira popular com dados fictícios, comandos:
+5. Executar o comando migrate para criar as tabelas necessárias e caso queira popular com dados fictícios, comandos:
 
-```php artisan migrate``` ---só as tabelas
+```php artisan migrate``` (só as tabelas)
 
 caso queira popular com dados fictícios
 
-```php artisan migrate --seed``` ---tabelas e dados fictícios
+```php artisan migrate --seed``` (tabelas e dados fictícios)
 
 6. Precisa criar o usuário padrão para usar a API ( logar e gerar o token), caso tenha rodado a seeds o user foi criado, caso não, execute somente a seed do usuário:
 

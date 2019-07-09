@@ -18,22 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => 'auth:api'], function(){
-    Route::get('offices', function(){
-        $office = \App\Model\Office::paginate(10);
-        return  \App\Http\Resources\OfficeResource::collection($office);
-    });
-    Route::get('offices/{office}', function(\App\Model\Office $office){    
-        return  new \App\Http\Resources\OfficeResource($office);
-    });
-    
-    Route::get('specifiers', function(){
-        $specifier = \App\Model\Specifier::paginate(10);
-        return  \App\Http\Resources\SpecifierResource::collection($specifier);
-    });    
-
-    Route::get('specifiers/{specifier}', function(\App\Model\Specifier $specifier){    
-        return  new \App\Http\Resources\SpecifierResource($specifier);
-    });
+    Route::apiResource('offices','OfficeController');
+    Route::apiResource('specifiers','SpecifierController');
 });
 
 Route::post('login', function(Request $request){
