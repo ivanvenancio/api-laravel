@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\Office;
 use Illuminate\Http\Request;
 use App\Http\Resources\OfficeResource;
+use App\Http\Requests\OfficeRequest;
 
 class OfficeController extends Controller
 {
@@ -25,10 +26,13 @@ class OfficeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OfficeRequest $request)
     {
+        $data = $request->all();
+       
+        $validated = $request->validated();
         try{
-            $data = $request->all();
+            
             $office = Office::create($data);
 
             return response()->json(

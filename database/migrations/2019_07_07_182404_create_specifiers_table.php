@@ -20,7 +20,7 @@ class CreateSpecifiersTable extends Migration
             $table->char('cpf',11)->unique();
             $table->string('profession');
             $table->date('date_birth');
-            $table->char('phone',13);
+            $table->string('phone',13);
             $table->string('zip_code',8);
             $table->char('state',2);
             $table->string('city');

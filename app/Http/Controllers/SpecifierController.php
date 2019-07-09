@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\Specifier;
 use Illuminate\Http\Request;
 use App\Http\Resources\SpecifierResource;
+use App\Http\Requests\SpecifierRequest;
 
 class SpecifierController extends Controller
 {
@@ -25,10 +26,12 @@ class SpecifierController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SpecifierRequest $request)
     {
-        try{
-            $data = $request->all();
+        $data = $request->all();
+        $validated = $request->validated();
+        
+        try{            
             $specifier = Specifier::create($data);
 
             return response()->json(
