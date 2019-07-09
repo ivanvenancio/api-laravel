@@ -30,13 +30,14 @@ class SpecifierController extends Controller
     {
         $data = $request->all();
         $validated = $request->validated();
-        
+
         try{            
             $specifier = Specifier::create($data);
 
             return response()->json(
                 ['data' => [
-                    'msg' => 'Especificador criado com sucesso'
+                    'msg' => 'Especificador criado com sucesso',
+                    'specifier' => $specifier
                     ]
                 ], 201);
         }catch(\Exception $e){
@@ -84,10 +85,12 @@ class SpecifierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SpecifierRequest $request, $id)
     {
         try{
-            $data = $request->all();
+            $data = $request->except('cpf');
+            $validated = $request->validated();
+
             $office = Specifier::find($id);
             $office->update($data);
 

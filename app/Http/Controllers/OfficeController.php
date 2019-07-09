@@ -9,6 +9,7 @@ use App\Http\Requests\OfficeRequest;
 
 class OfficeController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +38,8 @@ class OfficeController extends Controller
 
             return response()->json(
                 ['data' => [
-                    'msg' => 'Escritório criado com sucesso'
+                    'msg' => 'Escritório criado com sucesso',
+                    'office' => $office
                     ]
                 ], 201);
         }catch(\Exception $e){
@@ -88,11 +90,15 @@ class OfficeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(OfficeRequest $request, $id)
     {
         try{
-            $data = $request->all();
-            $office = Office::find($id);
+            $data = $request->except('cnpj');
+            $office = $this->office->find($id); 
+
+            $validated = $request->validated();
+            
+                       
             $office->update($data);
 
             return response()->json(

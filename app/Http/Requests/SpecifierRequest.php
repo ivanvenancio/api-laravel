@@ -23,8 +23,7 @@ class SpecifierRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'cpf' => 'bail|required|numeric|digits:11|unique:specifiers,cpf',
+        $rule = [            
             'first_name' => 'required|max:50',
             'last_name' => 'required|max:50',
             'profession' => 'required|max:50',
@@ -32,8 +31,13 @@ class SpecifierRequest extends FormRequest
             'phone' => 'bail|required|numeric|digits_between:8,13|',
             'zip_code' => 'bail|required|numeric|digits:8',
             'state' => 'required|size:2',
-            'city' => 'required|max:50'            
+            'city' => 'required|max:50'
         ];
+        if($this->method() == 'POST')
+        {
+            $rule['cpf'] = 'bail|required|numeric|digits:11|unique:specifiers,cpf';                     
+        }
+        return $rule;
     }
 
     /**

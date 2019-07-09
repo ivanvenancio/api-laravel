@@ -23,12 +23,16 @@ class OfficeRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'cnpj' => 'bail|required|numeric|digits:14|unique:offices,cnpj',
+        $rule = [            
             'fantasy_name' => 'required|max:50',
             'social_name' => 'required|max:50',
             'zip_code' => 'bail|required|numeric|digits:8'
         ];
+        if($this->method() == 'POST')
+        {
+            $rule['cnpj'] = 'bail|required|numeric|digits:14|unique:offices,cnpj';                     
+        }
+        return $rule;
     }
 
     /**
