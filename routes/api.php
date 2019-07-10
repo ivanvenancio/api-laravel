@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'auth:api'], function(){
     Route::apiResource('offices','OfficeController');
     Route::apiResource('specifiers','SpecifierController');
+    Route::post('specifiers/{specifier_id}/{office_id}','SpecifierController@unlinkOffice')->name('specifiers.unlinkOffice');
 });
 
 Route::post('login', function(Request $request){

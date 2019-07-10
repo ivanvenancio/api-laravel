@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Office;
 use App\Model\Specifier;
 use Illuminate\Http\Request;
-use App\Http\Resources\SpecifierResource;
+use App\Model\OfficeSpecifier;
 use App\Http\Requests\SpecifierRequest;
+use App\Http\Resources\SpecifierResource;
 
 class SpecifierController extends Controller
 {
@@ -87,12 +89,21 @@ class SpecifierController extends Controller
      */
     public function update(SpecifierRequest $request, $id)
     {
+        $specifier = Specifier::find($id);
+        
+        if(!$specifier){            
+            return response()->json(
+                ['data' => [
+                    'error' => 'Especificador não encontrado'
+                    ]
+                ]
+                , 404); 
+        }
         try{
             $data = $request->except('cpf');
             $validated = $request->validated();
-
-            $office = Specifier::find($id);
-            $office->update($data);
+            
+            $specifier->update($data);
 
             return response()->json(
                 ['data' => [
@@ -137,7 +148,8 @@ class SpecifierController extends Controller
             $specifier->delete();
             return response()->json(
                 ['data' => [
-                    'msg' => 'Especificador removido com sucesso'
+                    'msg' => 'Especificador removido com sucesso',
+                    'specifier' => $specifier
                     ]
                 ], 200);
         }catch(\Exception $e){
@@ -155,5 +167,73 @@ class SpecifierController extends Controller
                 ]
                 , 500); 
         }
+    }
+    /**
+     * Método que associa um novo Especificador a um Escritório,
+     * inativando se já houver alguma associação existente 
+     */
+    public function unlinkOffice($specifier_id, $office_id){
+
+        $specifier = Specifier::find($specifier_id);
+        
+        if(!$specifier){            
+            return response()->json(
+                ['data' => [
+                    'error' => 'Especificador não encontrado'
+                    ]
+                ]
+                , 404); 
+        }
+
+        $office = Office::find($office_id);
+        
+        if(!$office){            
+            return response()->json(
+                ['data' => [
+                    'error' => 'Escritório não encontrado'
+                    ]
+                ]
+                , 404); 
+        }
+
+        /**
+         * Inativa todos os possiveís vinculos do Especificador,
+         * garantindo 1 escritório ativo
+         */
+        OfficeSpecifier::where('specifier_id',$specifier_id)
+            ->update(['status' => 'no']);
+
+        /**
+         * Associa novo Escritório, atualizando um existente ou criando um novo
+         */
+        try{
+            $officeSpecifier = OfficeSpecifier::updateOrCreate(
+                ['office_id' => $office_id, 'specifier_id' => $specifier_id],
+                ['status' => 'yes']
+            );
+
+            return response()->json(
+                ['data' => [
+                    'msg' => 'Escritório associado com sucesso',
+                    'Offices' => $officeSpecifier
+                    ]
+                ], 201);
+
+        }catch(\Exception $e){
+            if(config('app.debug')){
+                return response()->json(
+                    ['data' => [
+                        'error' => $e->getMessage()
+                        ]
+                    ], 500);
+            }
+            return response()->json(
+                ['data' => [
+                    'error' => 'Erro ao atualizar especificador'
+                    ]
+                ]
+                , 500); 
+        }      
+        
     }
 }

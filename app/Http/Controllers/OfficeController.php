@@ -92,12 +92,19 @@ class OfficeController extends Controller
      */
     public function update(OfficeRequest $request, $id)
     {
+        $office = Office::find($id);
+        
+        if(!$office){
+            return response()->json(
+                ['data' => [
+                    'error' => 'Escritório não encontrado'
+                    ]
+                ]
+                , 404);            
+        }
         try{
-            $data = $request->except('cnpj');
-            $office = $this->office->find($id); 
-
+            $data = $request->except('cnpj');             
             $validated = $request->validated();
-            
                        
             $office->update($data);
 
