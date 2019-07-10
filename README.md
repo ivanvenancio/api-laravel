@@ -265,4 +265,12 @@ No body da requisição, enviar o JSON como o exemplo:
 
 Sendo assim, quando é feita uma associação nova, todas as outras são inativadas.
 
-``` /api/v1/specifiers/{specifier_id}/{office_id} ```
+``` /api/v1/specifiers/unlink ```
+
+No body da requisição, enviar o JSON como o exemplo:
+ ```   
+    {
+        "office_id": "48",
+        "specifier_id": "10"
+    }
+```

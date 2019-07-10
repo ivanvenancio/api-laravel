@@ -172,8 +172,11 @@ class SpecifierController extends Controller
      * Método que associa um novo Especificador a um Escritório,
      * inativando se já houver alguma associação existente 
      */
-    public function unlinkOffice($specifier_id, $office_id){
+    public function unlinkOffice(Request $request){
 
+        $specifier_id = $request->specifier_id;
+        $office_id = $request->office_id;
+        
         $specifier = Specifier::find($specifier_id);
         
         if(!$specifier){            
