@@ -139,7 +139,7 @@ Os escritórios tem paginação, trazendo 15 por página.
 
 enviar somente númerso no cnpj e no zip_code
 
-```/api/v1/offices/{office_id} ```
+```/api/v1/offices ```
 
 No body da requisição, enviar o JSON como o exemplo:
 
@@ -210,7 +210,7 @@ enviar somente númerso no cpf, phone e no zip_code
 
 no date_birth enviar no formato yyyy-mm-dd ou yyyy/mm/dd
 
-```/api/v1/specifiers/{specifier_id} ```
+```/api/v1/specifiers ```
 
   
 
@@ -261,7 +261,7 @@ No body da requisição, enviar o JSON como o exemplo:
 
 ```/api/v1/specifiers/{specifier_id} ```
 
-7. Associar um especificador a um escritório, para essa operação a regra implementada foi que um especificador só pode estar ativo em 1 escritório, mas pode ter no histórico, mais que um.
+7. Associar um especificador a um escritório, para essa operação a regra implementada foi que um especificador só pode estar ativo em 1 escritório, mas pode ter no histórico, mais que um.[POST]
 
 Sendo assim, quando é feita uma associação nova, todas as outras são inativadas.
 
