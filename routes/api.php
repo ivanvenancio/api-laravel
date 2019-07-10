@@ -16,20 +16,21 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::group(['middleware' => 'auth:api'], function(){
-    Route::apiResource('offices','OfficeController');
-    Route::apiResource('specifiers','SpecifierController');
-    Route::post('specifiers/{specifier_id}/{office_id}','SpecifierController@unlinkOffice')->name('specifiers.unlinkOffice');
-});
-
-Route::post('login', function(Request $request){
-    $data = $request->only('email', 'password');
-    $token = \Auth::guard('api')->attempt($data);
-    if(!$token){
-        return response()->json([
-            'error' => 'Credentials invalid'
-            ], 400);
-    }
-    return ['token' => $token];
+Route::prefix('v1')->group(function(){
+    Route::group(['middleware' => 'auth:api'], function(){
+        Route::apiResource('offices','OfficeController');
+        Route::apiResource('specifiers','SpecifierController');
+        Route::post('specifiers/{specifier_id}/{office_id}','SpecifierController@unlinkOffice')->name('specifiers.unlinkOffice');
+    });
+    
+    Route::post('login', function(Request $request){
+        $data = $request->only('email', 'password');
+        $token = \Auth::guard('api')->attempt($data);
+        if(!$token){
+            return response()->json([
+                'error' => 'Credentials invalid'
+                ], 400);
+        }
+        return ['token' => $token];
+    });
 });
